@@ -1,5 +1,7 @@
 package lcs_go
 
+import "strings"
+
 func dp(a, b string) string {
 	x := len(a)
 	y := len(b)
@@ -14,7 +16,7 @@ func dp(a, b string) string {
 
 	for i := 1; i <= x; i++ {
 		for j := 1; j <= y; j++ {
-			if aRune[i-1] == bRune[j-1] {
+			if strings.ToLower(string(aRune[i-1])) == strings.ToLower(string(bRune[j-1])) {
 				table[i][j] = table[i-1][j-1] + 1
 			} else {
 				table[i][j] = max(table[i-1][j], table[i][j-1])
@@ -26,7 +28,7 @@ func dp(a, b string) string {
 	n := y
 
 	for m > 0 && n > 0 {
-		if aRune[m-1] == bRune[n-1] {
+		if strings.ToLower(string(aRune[m-1])) == strings.ToLower(string(bRune[n-1])) {
 			result = string(aRune[m-1]) + result
 			m--
 			n--
