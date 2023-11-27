@@ -1,8 +1,13 @@
 package lcs_go
 
+import (
+	"unicode/utf8"
+)
+
 type stackNode struct {
-	x, y    int
-	current string
+	X       int    `json:"x"`
+	Y       int    `json:"y"`
+	Current string `json:"current"`
 }
 
 func backtracking(a, b string) string {
@@ -11,44 +16,43 @@ func backtracking(a, b string) string {
 
 	stack := []stackNode{
 		{
-			x:       len(a),
-			y:       len(b),
-			current: "",
+			X:       0,
+			Y:       0,
+			Current: "",
 		},
 	}
-
 	var result string
 
 	for len(stack) > 0 {
 		top := stack[len(stack)-1]
 		stack = stack[:len(stack)-1]
 
-		x, y := top.x, top.y
+		x, y := top.X, top.Y
 
-		if x == 0 || y == 0 {
-			if len(top.current) > len(result) {
-				result = top.current
+		if x == utf8.RuneCountInString(a) || y == utf8.RuneCountInString(b) {
+			if len(top.Current) > len(result) {
+				result = top.Current
 			}
 			continue
 		}
 
-		if aRune[x-1] == bRune[y-1] {
-			temp := string(aRune[x-1]) + top.current
+		if aRune[x] == bRune[y] {
+			temp := top.Current + string(aRune[x])
 			stack = append(stack, stackNode{
-				x:       x - 1,
-				y:       y - 1,
-				current: temp,
+				X:       x + 1,
+				Y:       y + 1,
+				Current: temp,
 			})
 		} else {
 			stack = append(stack, stackNode{
-				x:       x - 1,
-				y:       y,
-				current: top.current,
+				X:       x + 1,
+				Y:       y,
+				Current: top.Current,
 			})
 			stack = append(stack, stackNode{
-				x:       x,
-				y:       y - 1,
-				current: top.current,
+				X:       x,
+				Y:       y + 1,
+				Current: top.Current,
 			})
 		}
 	}
