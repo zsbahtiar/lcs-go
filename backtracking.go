@@ -1,6 +1,7 @@
 package lcs_go
 
 import (
+	"strings"
 	"unicode/utf8"
 )
 
@@ -36,7 +37,7 @@ func backtracking(a, b string) string {
 			continue
 		}
 
-		if aRune[x] == bRune[y] {
+		if strings.ToLower(string(aRune[x])) == strings.ToLower(string(bRune[y])) {
 			temp := top.Current + string(aRune[x])
 			stack = append(stack, stackNode{
 				X:       x + 1,

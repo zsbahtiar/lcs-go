@@ -1,5 +1,7 @@
 package lcs_go
 
+import "strings"
+
 func recursive(a, b string) string {
 	x := len(a)
 	y := len(b)
@@ -11,7 +13,7 @@ func recursive(a, b string) string {
 	aRune := []rune(a)
 	bRune := []rune(b)
 
-	if aRune[x-1] == bRune[y-1] {
+	if strings.ToLower(string(aRune[x-1])) == strings.ToLower(string(bRune[y-1])) {
 		return recursive(a[:x-1], b[:y-1]) + string(aRune[x-1])
 	}
 
