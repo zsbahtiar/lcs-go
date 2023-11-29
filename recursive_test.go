@@ -66,6 +66,18 @@ func TestRecursive(t *testing.T) {
 			b:    "A CE",
 			want: "A CE",
 		},
+		{
+			name: "should return MU",
+			a:    "ILMU",
+			b:    "KOMPUTER",
+			want: "MU",
+		},
+		{
+			name: "should return MU",
+			a:    "ILMUO",
+			b:    "KOMPUTER",
+			want: "MU",
+		},
 	}
 
 	for _, test := range tests {
